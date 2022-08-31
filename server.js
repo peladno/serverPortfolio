@@ -6,7 +6,13 @@ import cors from "cors";
 
 const app = express();
 const httpServer = http.createServer(app);
-app.use(cors({ origin: `${clientURL}` }));
+
+app.use(cors({
+  "origin": "*",
+  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+  "preflightContinue": false,
+  "optionsSuccessStatus": 204
+}));
 const PORT = process.env.PORT || port;
 
 app.use(express.json());
@@ -21,9 +27,9 @@ app.post("/send", async (req, res) => {
   try {
     const { fullName, email, message } = req.body;
     EmailSender({ fullName, email, message });
-    res.json({ msg: "Your message sent successfully" });
+    res.json({ message: "Your message sent successfully" });
   } catch (error) {
-    res.status(404).json({ msg: error });
+    res.status(404).json({ message: "Error" });
   }
 });
 
