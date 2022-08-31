@@ -8,7 +8,7 @@ const app = express();
 const httpServer = http.createServer(app);
 
 app.use(cors({
-  "origin": `${clientURL}`,
+  "origin": "*",
   "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
   "preflightContinue": false,
   "optionsSuccessStatus": 204
