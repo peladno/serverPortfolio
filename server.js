@@ -27,6 +27,10 @@ app.post("/send", async (req, res) => {
   }
 });
 
+app.get("/", (request, resolve) => {
+  resolve.send("<h1>OK</h1>");
+});
+
 httpServer.listen(PORT, () => {
   console.log(`Server http on ${PORT}...`);
 });
