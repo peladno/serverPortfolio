@@ -3,16 +3,23 @@ import http from "http";
 import EmailSender from "./sendEmail.js";
 import { port, clientURL } from "./config.js";
 import cors from "cors";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const httpServer = http.createServer(app);
 
-app.use(cors({
-  "origin": "*",
-  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
-  "preflightContinue": false,
-  "optionsSuccessStatus": 204
-}));
+app.use(
+  cors({
+    origin: "*",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+  })
+);
 const PORT = process.env.PORT || port;
 
 app.use(express.json());
@@ -35,6 +42,10 @@ app.post("/send", async (req, res) => {
 
 app.get("/", (request, resolve) => {
   resolve.send("<h1>OK</h1>");
+});
+
+app.get("/cv", (request, resolve) => {
+  resolve.sendFile(path.join(__dirname, "/public", "CvJavierPerez.pdf"));
 });
 
 httpServer.listen(PORT, () => {
