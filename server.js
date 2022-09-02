@@ -45,7 +45,7 @@ app.get("/", (request, resolve) => {
 });
 
 app.get("/cv", (request, resolve) => {
-  resolve.sendFile(path.join(__dirname, "/public", "CvJavierPerez.pdf"));
+  resolve.sendFile(path.join(__dirname, "/public", "JavierCurriculum.pdf"));
 });
 
 httpServer.listen(PORT, () => {
