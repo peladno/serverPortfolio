@@ -33,12 +33,19 @@ app.use(
 app.post("/send", async (req, res) => {
   try {
     const { fullName, email, message } = req.body;
-    EmailSender({ fullName, email, message });
-    res.json({ message: "Your message sent successfully" });
+    const result = await EmailSender({ fullName, email, message });
+
+    if (result.success) {
+      res.status(200).json({ message: "Your message sent successfully" });
+    } else {
+      res.status(500).json({ message: "Error sending email" });
+    }
   } catch (error) {
-    res.status(404).json({ message: "Error" });
+    console.error("Error sending email:", error);
+    res.status(500).json({ message: "Error sending email" });
   }
 });
+
 
 app.get("/", (request, resolve) => {
   resolve.send("<h1>OK</h1>");
