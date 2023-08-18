@@ -11,7 +11,6 @@ const Email = createTransport({
     pass: pass, //password
   },
 });
-
 const sendEmail = async ({ fullName, email, message }) => {
   if (!fullName || !email || !message) {
     return { error: true, errorMessage: "Missing required fields" };
